@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Data simulator</title>
+	<style type="text/css"><!--
+		b {
+			font-style: italic;
+		}
+
+		input[type='text'] {
+			width: 100px;
+			height: 14px;
+		}
+
+		select {
+			width: 204px;
+		}
+
+		table {
+			//border: 1px solid black;
+		}
+
+		td {
+			vertical-align: text-top;
+			//border: 1px solid black;
+			width: 200px;
+		}
+	--></style>
+	<script type="text/javascript"><!--
+		function setting() {
+			cleanData('t1');
+			cleanData('t2');
+		}
+		function cleanData(src) {
+			var t = document.getElementsByClassName(src);
+
+			for (var i = 0, j = t.length; i < j; i++) {
+				t[i].value = 0;
+			}
+		}
+		function distance(src1, src2, dst) {
+			var t1 = document.getElementsByClassName(src1);
+			var t2 = document.getElementsByClassName(src2);
+
+			var sum = 0;
+			for (var i = 0, j = t1.length; i < j; i++) {
+				sum += Math.pow(parseInt(t1[i].value) - parseInt(t2[i].value), 2);
+			}
+			sum = Math.sqrt(sum);
+
+			document.getElementById(dst).value = sum;
+		}
+		function inputData() {
+			var src = document.getElementById('combineInput').value.split(',');
+
+			var t1 = document.getElementsByClassName('t1');
+			for(var i = 0, j = t1.length, k = 7; i < j; i++) {
+				
+				if(src[i+k] == ''){
+					t1[i].value = 0;
+					continue;
+				}
+
+				if(src[i+k] == 'on' || src[i+k] == 'off'){
+					t1[i].value = (src[i+k] == 'on' ? 1 : 0);
+					continue;
+				}
+
+				t1[i].value = src[i+k];
+			}
+
+			var t2 = document.getElementsByClassName('t2');
+			for(var i = 0, j = t2.length, k = 7; i < j; i++) {
+				
+				if(src[i+k] == ''){
+					t2[i].value = 0;
+					continue;
+				}
+
+				if(src[i+k] == 'on' || src[i+k] == 'off'){
+					t2[i].value = (src[i+k] == 'on' ? 1 : 0);
+					continue;
+				}
+								
+				t2[i].value = src[i+k];
+			}
+
+			distance('t1 t11', 't2 t12', 't1dis');
+			distance('t1 t21', 't2 t22', 't2dis');
+		}
+		function outputData() {
+			var t = document.getElementsByClassName('t2');
+			var dst = '';
+			for(var i = 0, j = t.length; i < j; i++) {
+				dst += ',' + t[i].value;
+			}
+			dst = dst.slice(1);
+			document.getElementById('combineOutput').value = dst;
+		}
+	--></script>
+</head>
+<body onload="setting()">
+	<table>
+		<tr>
+			<td><h2>感測器資料</h2></td>
+			<td><input type="button" value="T1清除" onclick="cleanData('t1 t11')"></td>
+			<td><input type="button" value="T2清除" onclick="cleanData('t2 t12')" ></td>
+			<td><input type="button" value="計算組合" onclick="distance('t1 t11', 't2 t12', 't1dis')" ></td>
+			<td><input type="text" id="t1dis" ></td>
+			<td></td>
+		</tr>
+		<tr>
+			<td><b>OBDII</b></td>
+			<td></td>
+			<td></td>
+			<td><b>OBU</b></td>
+			<td></td>
+			<td></td>
+		</tr>
+		<tr>
+			<td>
+				車輛引擎轉速(rpm)<br>
+				車輛行駛時速(km/h)<br>
+				引擎進氣溫度(oC)<br>
+				引擎冷卻水溫(oC)<br>
+				空氣流率(g/s)
+			</td>
+			<td>
+				<input type="text" class="t1 t11" readonly="true" ><br>
+				<input type="text" class="t1 t11" readonly="true" ><br>
+				<input type="text" class="t1 t11" readonly="true" ><br>
+				<input type="text" class="t1 t11" readonly="true" ><br>
+				<input type="text" class="t1 t11" readonly="true" >
+			</td>
+			<td>
+				<input type="text" class="t2 t12" ><br>
+				<input type="text" class="t2 t12" ><br>
+				<input type="text" class="t2 t12" ><br>
+				<input type="text" class="t2 t12" ><br>
+				<input type="text" class="t2 t12" >
+			</td>
+			<td>
+				加速度(m/s2)<br>
+				煞車(Nt)<br>
+				燈號(on/off)<br>
+				方向盤(度)<br>
+				胎溫(oC)<br>
+				胎壓(kg/cm2)
+			</td>
+			<td>
+				<input type="text" class="t1 t11" readonly="true" ><br>
+				<input type="text" class="t1 t11" readonly="true" ><br>
+				<input type="text" class="t1 t11" readonly="true" ><br>
+				<input type="text" class="t1 t11" readonly="true" ><br>
+				<input type="text" class="t1 t11" readonly="true" ><br>
+				<input type="text" class="t1 t11" readonly="true" >
+			</td>
+			<td>
+				<input type="text" class="t2 t12" ><br>
+				<input type="text" class="t2 t12" ><br>
+				<input type="text" class="t2 t12" ><br>
+				<input type="text" class="t2 t12" ><br>
+				<input type="text" class="t2 t12" ><br>
+				<input type="text" class="t2 t12" >
+			</td>
+		</tr>
+		<tr>
+			<td><h2>模組資料</h2></td>
+			<td><input type="button" value="T1清除" onclick="cleanData('t1 t21')" ></td>
+			<td><input type="button" value="T2清除" onclick="cleanData('t2 t22')" ></td>
+			<td><input type="button" value="計算組合" onclick="distance('t1 t21', 't2 t22', 't2dis')" ></td>
+			<td><input type="text" id="t2dis" ></td>
+			<td></td>
+		</tr>
+		<tr>
+			<td><b>路面偵測模組</b></td>
+			<td></td>
+			<td></td>
+			<td><b>前方物體偵測模組</b></td>
+			<td></td>
+			<td></td>
+		</tr>
+		<tr>
+			<td>
+				特徵參數<br>
+				機器學習參數<br>
+				特徵來源選擇<br>
+				天氣狀況<br>
+				早晚狀況<br>
+				車輛密集度<br>
+				地點
+			</td>
+			<td>
+				<input type="text" class="t1 t21" readonly="true" ><br>
+				<input type="text" class="t1 t21" readonly="true" ><br>
+				<input type="text" class="t1 t21" readonly="true" ><br>
+				<input type="text" class="t1 t21" readonly="true" ><br>
+				<input type="text" class="t1 t21" readonly="true" ><br>
+				<input type="text" class="t1 t21" readonly="true" ><br>
+				<input type="text" class="t1 t21" readonly="true" >
+			</td>
+			<td>
+				<input type="text" class="t2 t22" ><br>
+				<input type="text" class="t2 t22" ><br>
+				<input type="text" class="t2 t22" ><br>
+				<input type="text" class="t2 t22" ><br>
+				<input type="text" class="t2 t22" ><br>
+				<input type="text" class="t2 t22" ><br>
+				<input type="text" class="t2 t22" >
+			</td>
+			<td>
+				特徵參數<br>
+				機器學習參數<br>
+				特徵來源選擇<br>
+				天氣狀況<br>
+				早晚狀況<br>
+				車輛密集度<br>
+				地點
+			</td>
+			<td>
+				<input type="text" class="t1 t21" readonly="true" ><br>
+				<input type="text" class="t1 t21" readonly="true" ><br>
+				<input type="text" class="t1 t21" readonly="true" ><br>
+				<input type="text" class="t1 t21" readonly="true" ><br>
+				<input type="text" class="t1 t21" readonly="true" ><br>
+				<input type="text" class="t1 t21" readonly="true" ><br>
+				<input type="text" class="t1 t21" readonly="true" >
+			</td>
+			<td>
+				<input type="text" class="t2 t22" ><br>
+				<input type="text" class="t2 t22" ><br>
+				<input type="text" class="t2 t22" ><br>
+				<input type="text" class="t2 t22" ><br>
+				<input type="text" class="t2 t22" ><br>
+				<input type="text" class="t2 t22" ><br>
+				<input type="text" class="t2 t22" >
+			</td>
+		</tr>
+		<tr>
+			<td><b>智慧頭燈模組</b></td>
+			<td></td>
+			<td></td>
+			<td><b>路偏移偵測模組</b></td>
+			<td></td>
+			<td></td>
+		</tr>
+		<tr>
+			<td>
+				影像亮度資料<br>
+				光譜敏感度<br>
+				防遠近燈震盪延遲時間
+			</td>
+			<td>
+				<input type="text" class="t1 t21" readonly="true" ><br>
+				<input type="text" class="t1 t21" readonly="true" ><br>
+				<input type="text" class="t1 t21" readonly="true" >
+			</td>
+			<td>
+				<input type="text" class="t2 t22" ><br>
+				<input type="text" class="t2 t22" ><br>
+				<input type="text" class="t2 t22" >
+			</td>
+			<td>
+				右車道敏感度<br>
+				左車道敏感度<br>
+				預設偵測車道最小寬度<br>
+				預設偵測車道最大寬度<br>
+				警告敏感度<br>
+				道路偵測失敗回溯時間長度
+			</td>
+			<td>
+				<input type="text" class="t1 t21" readonly="true" ><br>
+				<input type="text" class="t1 t21" readonly="true" ><br>
+				<input type="text" class="t1 t21" readonly="true" ><br>
+				<input type="text" class="t1 t21" readonly="true" ><br>
+				<input type="text" class="t1 t21" readonly="true" ><br>
+				<input type="text" class="t1 t21" readonly="true" >
+			</td>
+			<td>
+				<input type="text" class="t2 t22" ><br>
+				<input type="text" class="t2 t22" ><br>
+				<input type="text" class="t2 t22" ><br>
+				<input type="text" class="t2 t22" ><br>
+				<input type="text" class="t2 t22" ><br>
+				<input type="text" class="t2 t22" >
+			</td>
+		</tr>
+		<tr>
+			<td><input type="button" value="輸入組合" onclick="inputData()"></td>
+			<td><input type="text" id="combineInput"></td>
+			<td><input type="button" value="輸出組合" onclick="outputData()"></td>
+			<td><input type="text" id="combineOutput"></td>
+			<td></td>
+			<td></td>
+		</tr>
+	</table>
+</body>
+</html>

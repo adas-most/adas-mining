@@ -1,0 +1,36 @@
+﻿※需求版本：
+Eclipse Neon所有版本
+Tomcat 9.0
+
+
+
+※安裝步驟
+1. 安裝 Eclipse Neon
+2. 開啟 Eclipse -> Help -> Eclipse MarketPlace,並安裝以下套件：
+
+Eclipse Java EE Developer Tools
+Eclipse Java Web Developer Tools
+Eclipse Web Developer Tools
+Eclipse XML Editors and Tools
+
+參考來源
+https://stackoverflow.com/questions/5531402/newbie-in-eclipse-i-dont-have-dynamic-web-project-i-am-under-linux-ubuntu
+
+3. 安裝 Tomcat
+4. 開啟 Eclipse -> Help -> Eclipse MarketPlace,並安裝以下套件：
+
+Eclipse Tomcat Plugin
+
+5. 更新jre檔案
+after two days of struggling:
+http://www.oracle.com/technetwork/java/javase/downloads/jce8-download-2133166.html
+replace those two with the ones in %JAVA_HOME%/lib/security
+and you'll be able to install after eclipse restart
+
+參考來源
+https://sourceforge.net/p/tomcatplugin/tickets/26/
+
+6. 開啟 Eclipse -> Help -> Eclipse MarketPlace,並安裝以下套件：
+
+Eclipse JST Server Adapters
+Eclipse JST Server Adapters Extention
